@@ -1,9 +1,7 @@
 <%= turbo_frame_tag "modal" do %>
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New post</h1>
-
-  <%= render "form", post: @post %>
-
-  <%= link_to 'Back to posts', posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+  <%= tag.div data: { controller: "turbo-modal" }, style: "padding: 30px;" do %>
+    <h1 class="font-bold text-4xl">New post</h1>
+    <%= render "form", post: @post %>
+    <%= button_tag "Close", data: { action: "turbo-modal#hideModal" }, type: "button", class: "rounded-lg py-3 px-5 bg-red-600 text-white" %>
+  <% end %>
 <% end %>
