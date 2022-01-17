@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :ensure_frame_response, only: [:new, :edit]
 
   # GET /posts or /posts.json
   def index
@@ -62,6 +63,11 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
+    end
+
+    def ensure_frame_response
+      return unless Rails.env.development?
+      redirect_to root_path unless turbo_frame_request?
     end
 
     # Only allow a list of trusted parameters through.
